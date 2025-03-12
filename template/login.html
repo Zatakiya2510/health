@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #FBFFE4;
+        }
+
+        .login-container {
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 15%;
+            background: url('https://img.freepik.com/free-vector/clean-medical-background_53876-97927.jpg?t=st=1741774507~exp=1741778107~hmac=c48bf40f63cca6f7f4aa4334d90b3420eecdb3aabe6f66c9b52b32d55f71d28b&w=1060') no-repeat center center/cover;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            border-radius: 12px;
+            background-color: #B3D8A8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .login-form:hover {
+            background-color: #A3D1C6;
+            transform: scale(1.05);
+        }
+
+        .form-control {
+            background-color: white;
+            color: black;
+        }
+
+        .form-control::placeholder {
+            color: gray;
+        }
+
+        .btn-primary {
+            background-color: #3D8D7A;
+            border: none;
+            font-size: 18px;
+            padding: 12px;
+            color: white;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #2F6E5C;
+        }
+
+        .alert {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: #3D8D7A;
+            font-weight: bold;
+        }
+
+        a {
+            color: #3D8D7A;
+        }
+
+        a:hover {
+            color: #2F6E5C;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2 class="text-center mb-3">Login</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form method="POST" autocomplete="off">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        value="{{ request.form['username'] if 'username' in request.form else '' }}"
+                        autocomplete="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        value="{{ request.form['password'] if 'password' in request.form else '' }}"
+                        autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="mt-3 text-center">
+                <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
